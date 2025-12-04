@@ -1,0 +1,11 @@
+import pg from 'pg';
+
+const { Pool } = pg;
+
+export const pool = new Pool({
+  user: 'postgres',
+  host: 'db',          // If using docker-compose
+  database: 'blogdb',
+  password: '12345',
+  port: 5432,
+});
