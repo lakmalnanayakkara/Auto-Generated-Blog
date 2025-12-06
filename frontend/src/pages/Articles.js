@@ -26,7 +26,6 @@ export default function Articles() {
 
       <div className="header-row">
         <h1 className="main-title">Trending Technologies Blog</h1>
-        <Link to="/new-article" className="add-btn">+ Add New Blog</Link>
       </div>
 
       <div className="card-grid">
