@@ -22,6 +22,6 @@ app.use('/articles', articleRoutes);
 global.io = io;
 
 const port = process.env.PORT || 5000;
-app.listen(port, function () {
+server.listen(port, function () {
   console.log(`server at http://localhost:${port}`);
 });

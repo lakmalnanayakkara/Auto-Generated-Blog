@@ -4,8 +4,8 @@ import { createArticle } from '../models/article.model.js';
 
 cron.schedule('*/5 * * * *', async () => {
   const content = await generateArticle("Write a short blog post about a trnding technology."); 
-  await createArticle("Daily Tech Article", content);
-  
+  const newArticle = await createArticle("Daily Tech Article", content);
+
   if (global.io) {
     global.io.emit("new-article", newArticle);
   }
