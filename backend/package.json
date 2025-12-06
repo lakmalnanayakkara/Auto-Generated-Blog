@@ -11,12 +11,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@huggingface/inference": "^4.13.4",
+    "@huggingface/transformers": "^3.8.1",
     "cors": "^2.8.5",
     "cron": "^4.3.5",
+    "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "http": "^0.0.1-security",
+    "marked": "^17.0.1",
     "node-cron": "^4.2.1",
     "node-fetch": "^3.3.2",
     "pg": "^8.16.3",
+    "socket.io": "^4.8.1",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

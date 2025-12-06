@@ -4,7 +4,7 @@ const { Pool } = pg;
 
 export const pool = new Pool({
   user: 'postgres',
-  host: 'db',          // If using docker-compose
+  host: 'localhost',          
   database: 'blogdb',
   password: '12345',
   port: 5432,

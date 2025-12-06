@@ -1,18 +1,35 @@
 import fetch from 'node-fetch';
+import dotenv from 'dotenv';
+import { marked } from "marked";
 
-const HF_API_URL = 'https://api-inference.huggingface.co/models/google/flan-t5-small';
-const API_KEY = process.env.HF_TOKEN;
+dotenv.config();
 
 export async function generateArticle(prompt) {
-  const response = await fetch(HF_API_URL, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ inputs: prompt }),
-  });
-
-  const data = await response.json();
-  return data[0].generated_text ?? "Generated article";
+  try {
+    const data = {
+      messages: [
+        {
+            role: "user",
+            content: prompt,
+        },
+      ],
+      model: "meta-llama/Llama-3.1-8B-Instruct:novita",
+    }
+    const response = await fetch(
+      "https://router.huggingface.co/v1/chat/completions",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.HF_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(data),
+      }
+	  );
+    const result = await response.json();
+	  return marked(result.choices[0].message.content);
+  } catch (error) {
+    console.error("Error generating text:", error);
+    return null;
+  }
 }

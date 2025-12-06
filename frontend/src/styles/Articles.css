@@ -1,0 +1,66 @@
+.articles-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial;
+}
+
+/* Title centered */
+.main-title {
+  text-align: center;
+  flex: 1;
+}
+
+/* Add New Blog button */
+.add-btn {
+  background: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 15px;
+  height: fit-content;
+}
+.add-btn:hover {
+  background: #0056b3;
+}
+
+/* Header row: title center + button right */
+.header-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+/* Grid cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* Article card */
+.article-card {
+  padding: 16px;
+  border-radius: 10px;
+  background: #f4f4f4;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+  transition: transform .2s ease;
+}
+.article-card:hover {
+  transform: translateY(-3px);
+}
+
+.card-title {
+  color: #333;
+  text-decoration: none;
+}
+.card-title:hover {
+  text-decoration: underline;
+}
+
+.card-date {
+  margin-top: 8px;
+  color: #666;
+  font-size: 14px;
+}
