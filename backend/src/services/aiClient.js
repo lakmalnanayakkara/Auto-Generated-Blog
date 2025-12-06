@@ -1,43 +1,35 @@
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
+import { marked } from "marked";
 
 dotenv.config();
-const HF_API_URL = `https://router.huggingface.co/models/Felladrin/gguf-flan-t5-small`;
-const API_KEY = process.env.HF_TOKEN;
 
 export async function generateArticle(prompt) {
   try {
-    const response = await fetch(HF_API_URL, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ inputs: prompt }),
-    });
-
-    const data = await response.json();
-
-    // HuggingFace may return an error
-    if (data.error) {
-      console.error('HuggingFace API Error:', data.error);
-      return "Generated article (default)"; // fallback text
+    const data = {
+      messages: [
+        {
+            role: "user",
+            content: prompt,
+        },
+      ],
+      model: "meta-llama/Llama-3.1-8B-Instruct:novita",
     }
-
-    // Some models return text in array of objects
-    if (Array.isArray(data) && data[0]?.generated_text) {
-      return data[0].generated_text;
-    }
-
-    // If the response is a string directly
-    if (typeof data === 'string') return data;
-
-    // fallback
-    console.warn('Unexpected HF response:', data);
-    return "Generated article (default)";
-    
-  } catch (err) {
-    console.error('Failed to generate article:', err);
-    return "Generated article (default)";
+    const response = await fetch(
+      "https://router.huggingface.co/v1/chat/completions",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.HF_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(data),
+      }
+	  );
+    const result = await response.json();
+	  return marked(result.choices[0].message.content);
+  } catch (error) {
+    console.error("Error generating text:", error);
+    return null;
   }
 }
