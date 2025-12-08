@@ -37,7 +37,7 @@ export default function Articles() {
               </Link>
             </h3>
             <p className="card-date">
-              {new Date(a.created_at).toLocaleString()}
+              {new Date(a.created_at + "Z").toLocaleString()}
             </p>
           </div>
         ))}
