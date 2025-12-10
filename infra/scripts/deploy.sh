@@ -12,7 +12,7 @@ docker pull $FRONTEND_IMAGE:latest
 docker pull $BACKEND_IMAGE:latest
 
 echo "Restarting containers..."
-docker-compose -f /home/ec2-user/app/infra/docker-compose.yml down
-docker-compose -f /home/ec2-user/app/infra/docker-compose.yml up -d
+docker compose -f /home/ec2-user/Auto-Generated-Blog/infra/docker-compose.yml down
+docker compose -f /home/ec2-user/Auto-Generated-Blog/infra/docker-compose.yml up -d
 
 echo "Deployment complete!"

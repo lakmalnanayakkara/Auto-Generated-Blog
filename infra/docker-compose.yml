@@ -1,18 +1,62 @@
+# version: "3.9"
+
+# services:
+#   frontend:
+#     build: ../frontend       
+#     container_name: blog-frontend
+#     ports:
+#       - "3000:3000"
+#     environment:
+#       - REACT_APP_API_URL=http://backend:5000
+#     depends_on:
+#       - backend
+
+#   backend:
+#     build: ../backend         
+#     container_name: blog-backend
+#     ports:
+#       - "5000:5000"
+#     environment:
+#       PGUSER: postgres
+#       PGPASSWORD: 12345
+#       PGDATABASE: blogdb
+#       PGHOST: db
+#       PGPORT: 5432
+#       HF_TOKEN: ${HF_TOKEN}
+#     depends_on:
+#       - db
+
+#   db:
+#     image: postgres:15
+#     container_name: blog-postgres
+#     restart: always
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: 12345
+#       POSTGRES_DB: blogdb
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - pgdata:/var/lib/postgresql/data
+
+# volumes:
+#   pgdata:
+
 version: "3.9"
 
 services:
   frontend:
-    build: ../frontend       
+    image: 317430949948.dkr.ecr.us-east-1.amazonaws.com/blog-frontend:latest
     container_name: blog-frontend
     ports:
       - "3000:3000"
     environment:
-      - REACT_APP_API_URL=http://backend:5000
+      - REACT_APP_API_URL=http://3.236.235.79:5000
     depends_on:
       - backend
 
   backend:
-    build: ../backend         
+    image: 317430949948.dkr.ecr.us-east-1.amazonaws.com/blog-backend:latest
     container_name: blog-backend
     ports:
       - "5000:5000"
@@ -34,10 +78,10 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 12345
       POSTGRES_DB: blogdb
-    ports:
-      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 
 volumes:
   pgdata:
