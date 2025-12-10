@@ -1,5 +1,5 @@
-# 1. Use official Node.js image
-FROM node:20
+# 1. Use Node.js from AWS public ECR (no Docker Hub rate limit)
+FROM public.ecr.aws/docker/library/node:20
 
 # 2. Create app directory inside container
 WORKDIR /app
