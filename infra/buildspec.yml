@@ -1,0 +1,31 @@
+version: 0.2
+
+env:
+  variables:
+    FRONTEND_IMAGE: "317430949948.dkr.ecr.us-east-1.amazonaws.com/blog-frontend"
+    BACKEND_IMAGE: "317430949948.dkr.ecr.us-east-1.amazonaws.com/blog-backend"
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging into ECR...
+      - aws --version
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 317430949948.dkr.ecr.us-east-1.amazonaws.com
+
+  build:
+    commands:
+      - echo Building frontend...
+      - docker build -t $FRONTEND_IMAGE:latest ./frontend
+
+      - echo Building backend...
+      - docker build -t $BACKEND_IMAGE:latest ./backend
+
+  post_build:
+    commands:
+      - echo Pushing images...
+      - docker push $FRONTEND_IMAGE:latest
+      - docker push $BACKEND_IMAGE:latest
+
+artifacts:
+  files:
+    - "**/*"
